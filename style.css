@@ -33,6 +33,14 @@ body {
     user-select: all;
 }
 
+.display {
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 5px;
+}
+
 .body {
     display: flex;
     justify-content: space-between;
