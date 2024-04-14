@@ -12,6 +12,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    user-select: none;
 }
 
 .calculator {
@@ -27,8 +28,9 @@ body {
 .header {
     width: 380px;
     height: 85px;
-    background-color: grey;
+    background-color: #808080;
     border-radius: 20px;
+    user-select: all;
 }
 
 .body {
@@ -44,7 +46,7 @@ body {
 .clear {
     width: 288px;
     border-radius: 50px;
-    background-color: lightgray;
+    background-color: #d3d3d3;
     color: black;
     margin: 15px 0;
 }
@@ -70,11 +72,11 @@ body {
 }
 
 .number {
-    background-color: grey;
+    background-color: #808080;
 }
 
 .operator {
-    background-color: orange;
+    background-color: #ffa500;
 }
 
 .zero {
@@ -92,4 +94,16 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+
+.number:active {
+    background-color: #b0b0b0;
+}
+
+.clear:active {
+    background-color: #f5f5f5;
+}
+
+.operator:active {
+    background-color: #ffb635;
 }
