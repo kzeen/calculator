@@ -112,6 +112,6 @@ body {
     background-color: #f5f5f5;
 }
 
-.operator:active {
+.operator:active, .selectedOperator  {
     background-color: #ffb635;
 }
