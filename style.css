@@ -53,6 +53,7 @@ body {
 
 .clear {
     width: 288px;
+    height: 70px;
     border-radius: 50px;
     background-color: #d3d3d3;
     color: black;
@@ -87,6 +88,10 @@ body {
     background-color: #ffa500;
 }
 
+.divide {
+    margin-top: 14px;
+}
+
 .zero {
     width: 288px;
     border-radius: 50px;
@@ -101,7 +106,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .number:active {

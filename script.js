@@ -7,7 +7,13 @@ let operand1 = "";
 let currentOperator = "";
 let operand2 = "";
 
+const validNumberKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const validOperatorKeys = ["Enter", "=", "+", "-", "*", "x", "X", "/"];;
+const clearKeys = ["c", "C", "Escape"];
+
 clearButton.addEventListener("click", clear);
+
+document.body.addEventListener("keydown", keyboardClick);
 
 numberButtons.forEach((number) => {
     number.addEventListener("click", numberClick);
@@ -17,8 +23,24 @@ operatorButtons.forEach((operator) => {
     operator.addEventListener("click", operatorClick);
 })
 
+function keyboardClick(element) {
+    const key = element.key;
+    if (validNumberKeys.includes(key)) {
+        numberClick(element);
+    } else if (validOperatorKeys.includes(key)) {
+        operatorClick(element);
+    } else if (clearKeys.includes(key)) {
+        clear();
+    }
+}
+
 function numberClick(element) {
-    const num = element.target.innerText;
+    let num;
+    if (element instanceof PointerEvent) {
+        num = element.target.innerText;
+    } else if (element instanceof KeyboardEvent) {
+        num = element.key;
+    }
     if (currentOperator === "") {
         operand1 += num;
         updateDisplay(operand1);
@@ -32,8 +54,13 @@ function operatorClick(element) {
     if (operand1 === "") {
         return;
     } else {
-        const operator = element.target.innerText;
-        if (operator === "=") {
+        let operator;
+        if (element instanceof PointerEvent) {
+            operator = element.target.innerText;
+        } else if (element instanceof KeyboardEvent) {
+            operator = element.key;
+        }
+        if (operator === "=" || operator === "Enter") {
             if (currentOperator === "") {
                 return;
             } else if (operand2 === "") {
@@ -102,16 +129,16 @@ function operate(operand1, operator, operand2) {
     switch (operator) {
         case "+":
             return add(operand1, operand2);
-            break;
         case "-":
             return subtract(operand1, operand2);
-            break;
         case "x":
             return multiply(operand1, operand2);
-            break;  
+        case "X":
+            return multiply(operand1, operand2);
+        case "*":
+            return multiply(operand1, operand2);
         case "/":
-            return divide(operand1, operand2);
-            break;          
+            return divide(operand1, operand2);  
         default:
             break;
     }
