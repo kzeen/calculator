@@ -6,6 +6,7 @@ const operatorButtons = document.querySelectorAll(".operator");
 let operand1 = "";
 let currentOperator = "";
 let operand2 = "";
+let newOperation = false;
 
 const validNumberKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const validOperatorKeys = ["Enter", "=", "+", "-", "*", "x", "X", "/"];;
@@ -66,6 +67,10 @@ function handleNumber(num) {
         if (operand1.length > 11) {
             return;
         }
+        if (newOperation === true) {
+            operand1 = "";
+            newOperation = false;
+        }
         operand1 += num;
         updateDisplay(operand1);
     } else {
@@ -94,6 +99,7 @@ function handleOperator(op) {
         clear()
         updateDisplay(result);
         operand1 = result;
+        newOperation = true;
         toggleOperator("selectedOperator");
     } else {
         currentOperator = op;
@@ -105,6 +111,7 @@ function clear() {
     operand1 = "";
     currentOperator = "";
     operand2 = "";
+    newOperation = false;
     updateDisplay("");
 }
 
