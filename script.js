@@ -63,9 +63,15 @@ function operatorClick(element) {
 
 function handleNumber(num) {
     if (currentOperator === "") {
+        if (operand1.length > 11) {
+            return;
+        }
         operand1 += num;
         updateDisplay(operand1);
     } else {
+        if (operand2.length > 11) {
+            return;
+        }
         operand2 += num;
         updateDisplay(operand2);
     }
@@ -78,7 +84,13 @@ function handleOperator(op) {
         } else if (operand2 === "") {
             operand2 += "0";
         }
-        const result = operate(operand1, currentOperator, operand2);
+        let result = operate(operand1, currentOperator, operand2);
+        if (result % 1 !== 0) {
+            result = +result.toFixed(2);
+        }
+        if (result.toString().length > 11) {
+            result = result.toExponential(0);
+        }
         clear()
         updateDisplay(result);
         operand1 = result;
@@ -135,8 +147,8 @@ function divide(operand1, operand2) {
 }
 
 function operate(operand1, operator, operand2) {
-    operand1 = parseInt(operand1);
-    operand2 = parseInt(operand2);
+    operand1 = Number(operand1);
+    operand2 = Number(operand2);
     switch (operator) {
         case "+":
             return add(operand1, operand2);
