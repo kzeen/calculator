@@ -25,6 +25,7 @@ operatorButtons.forEach((operator) => {
 
 function keyboardClick(element) {
     const key = element.key;
+
     if (validNumberKeys.includes(key)) {
         numberClick(element);
     } else if (validOperatorKeys.includes(key)) {
@@ -35,12 +36,32 @@ function keyboardClick(element) {
 }
 
 function numberClick(element) {
-    let num;
+    let number;
+
     if (element instanceof PointerEvent) {
-        num = element.target.innerText;
+        number = element.target.innerText;
     } else if (element instanceof KeyboardEvent) {
-        num = element.key;
+        number = element.key;
     }
+    handleNumber(number);
+}
+
+function operatorClick(element) {
+    if (operand1 === "") {
+        return;
+    } else {
+        let operator;
+
+        if (element instanceof PointerEvent) {
+            operator = element.target.innerText;
+        } else if (element instanceof KeyboardEvent) {
+            operator = element.key;
+        }
+        handleOperator(operator);
+    }
+}
+
+function handleNumber(num) {
     if (currentOperator === "") {
         operand1 += num;
         updateDisplay(operand1);
@@ -50,31 +71,21 @@ function numberClick(element) {
     }
 }
 
-function operatorClick(element) {
-    if (operand1 === "") {
-        return;
+function handleOperator(op) {
+    if (op === "=" || op === "Enter") {
+        if (currentOperator === "") {
+            return;
+        } else if (operand2 === "") {
+            operand2 += "0";
+        }
+        const result = operate(operand1, currentOperator, operand2);
+        clear()
+        updateDisplay(result);
+        operand1 = result;
+        toggleOperator("selectedOperator");
     } else {
-        let operator;
-        if (element instanceof PointerEvent) {
-            operator = element.target.innerText;
-        } else if (element instanceof KeyboardEvent) {
-            operator = element.key;
-        }
-        if (operator === "=" || operator === "Enter") {
-            if (currentOperator === "") {
-                return;
-            } else if (operand2 === "") {
-                operand2 += "0";
-            }
-            const result = operate(operand1, currentOperator, operand2);
-            clear()
-            updateDisplay(result);
-            operand1 = result;
-            toggleOperator("selectedOperator");
-        } else {
-            currentOperator = operator;
-            toggleOperator("selectedOperator", operator);            
-        }
+        currentOperator = op;
+        toggleOperator("selectedOperator", op);            
     }
 }
 
