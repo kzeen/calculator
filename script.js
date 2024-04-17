@@ -114,8 +114,14 @@ function handleOperator(op) {
     if (op === "=" || op === "Enter") {
         if (currentOperator === "") {
             return;
-        } else if (operand2 === "") {
+        }
+        if (operand2 === "") {
             operand2 += "0";
+        }
+        if (currentOperator === "/" && operand2 === "0") {
+            clear();
+            updateDisplay("Math Error");
+            return;
         }
         let result = operate(operand1, currentOperator, operand2);
         if (result % 1 !== 0) {
