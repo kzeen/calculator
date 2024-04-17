@@ -45,6 +45,7 @@ body {
     display: flex;
     justify-content: space-between;
     width: 380px;
+    height: 480px;
 }
 
 .main {
@@ -104,7 +105,7 @@ body {
 }
 
 .side {
-    height: 475px;
+    height: 100%;
     width: 80px;
 }
 
