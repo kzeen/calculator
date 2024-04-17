@@ -16,11 +16,11 @@ const validOperatorKeys = ["Enter", "=", "+", "-", "*", "x", "X", "/"];;
 const clearKeys = ["c", "C", "Escape"];
 const delKeys = ["Delete", "Backspace"];
 
+document.body.addEventListener("keydown", keyboardClick);
+
 clearButton.addEventListener("click", clear);
 
 deleteButton.addEventListener("click", deleteNum);
-
-document.body.addEventListener("keydown", keyboardClick);
 
 numberButtons.forEach((number) => {
     number.addEventListener("click", numberClick);
@@ -44,14 +44,18 @@ function keyboardClick(element) {
     }
 }
 
-function numberClick(element) {
-    let number;
-
-    if (element instanceof PointerEvent) {
-        number = element.target.innerText;
-    } else if (element instanceof KeyboardEvent) {
-        number = element.key;
+function getInnerContent(elem) {
+    let content;
+    if (elem instanceof PointerEvent) {
+        content = elem.target.innerText;
+    } else if (elem instanceof KeyboardEvent) {
+        content = elem.key;
     }
+    return content;
+}
+
+function numberClick(element) {
+    const number = getInnerContent(element);
     handleNumber(number);
 }
 
@@ -59,13 +63,7 @@ function operatorClick(element) {
     if (operand1 === "") {
         return;
     } else {
-        let operator;
-
-        if (element instanceof PointerEvent) {
-            operator = element.target.innerText;
-        } else if (element instanceof KeyboardEvent) {
-            operator = element.key;
-        }
+        const operator = getInnerContent(element);
         handleOperator(operator);
     }
 }
