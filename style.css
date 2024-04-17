@@ -125,5 +125,5 @@ body {
 }
 
 .operator:active, .selectedOperator  {
-    background-color: #ffb635;
+    background-color: #f7c97a;
 }
