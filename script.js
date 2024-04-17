@@ -7,8 +7,10 @@ let operand1 = "";
 let currentOperator = "";
 let operand2 = "";
 let newOperation = false;
+let decimal1Used = false;
+let decimal2Used = false;
 
-const validNumberKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const validNumberKeys = [".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const validOperatorKeys = ["Enter", "=", "+", "-", "*", "x", "X", "/"];;
 const clearKeys = ["c", "C", "Escape"];
 
@@ -71,11 +73,31 @@ function handleNumber(num) {
             operand1 = "";
             newOperation = false;
         }
+        if (num === ".") {
+            if (decimal1Used) {
+                return;
+            } else {
+                if (operand1 === "") {
+                    operand1 += "0";
+                }
+                decimal1Used = true;
+            }
+        }
         operand1 += num;
         updateDisplay(operand1);
     } else {
         if (operand2.length > 11) {
             return;
+        }
+        if (num === ".") {
+            if (decimal2Used) {
+                return;
+            } else {
+                if (operand2 === "") {
+                    operand2 += "0";
+                }
+                decimal2Used = true;
+            }
         }
         operand2 += num;
         updateDisplay(operand2);
@@ -112,6 +134,8 @@ function clear() {
     currentOperator = "";
     operand2 = "";
     newOperation = false;
+    decimal1Used = false;
+    decimal2Used = false;
     updateDisplay("");
 }
 
