@@ -46,7 +46,8 @@ function keyboardClick(element) {
 
 function getInnerContent(elem) {
     let content;
-    if (elem instanceof PointerEvent) {
+    // 2 different event names for click event (Chrome & Firefox)
+    if (elem instanceof PointerEvent || elem instanceof MouseEvent) {
         content = elem.target.innerText;
     } else if (elem instanceof KeyboardEvent) {
         content = elem.key;
