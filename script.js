@@ -118,9 +118,10 @@ function handleOperator(op) {
         if (operand2 === "") {
             operand2 += "0";
         }
-        if (currentOperator === "/" && operand2 === "0") {
+        if (currentOperator === "/" && (operand2 === "0" || operand2 === "0.")) {
             clear();
             updateDisplay("Math Error");
+            toggleOperator("selectedOperator");
             return;
         }
         let result = operate(operand1, currentOperator, operand2);
