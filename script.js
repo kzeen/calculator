@@ -1,5 +1,6 @@
 const display = document.querySelector(".display");
 const clearButton = document.querySelector(".clear");
+const deleteButton = document.querySelector(".delete");
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 
@@ -13,8 +14,11 @@ let decimal2Used = false;
 const validNumberKeys = [".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const validOperatorKeys = ["Enter", "=", "+", "-", "*", "x", "X", "/"];;
 const clearKeys = ["c", "C", "Escape"];
+const delKeys = ["Delete", "Backspace"];
 
 clearButton.addEventListener("click", clear);
+
+deleteButton.addEventListener("click", deleteNum);
 
 document.body.addEventListener("keydown", keyboardClick);
 
@@ -35,6 +39,8 @@ function keyboardClick(element) {
         operatorClick(element);
     } else if (clearKeys.includes(key)) {
         clear();
+    } else if (delKeys.includes(key)) {
+        deleteNum();
     }
 }
 
@@ -120,7 +126,7 @@ function handleOperator(op) {
         }
         clear()
         updateDisplay(result);
-        operand1 = result;
+        operand1 = result.toString();
         newOperation = true;
         toggleOperator("selectedOperator");
     } else {
@@ -137,6 +143,28 @@ function clear() {
     decimal1Used = false;
     decimal2Used = false;
     updateDisplay("");
+}
+
+function deleteNum() {
+    if (currentOperator === "") {
+        if (newOperation === true) {
+            operand1 = "";
+            newOperation = false;
+            updateDisplay(operand1);
+            return;
+        }
+        if (operand1 === "") {
+            return;
+        }
+        operand1 = operand1.slice(0, operand1.length - 1);
+        updateDisplay(operand1);
+    } else {
+        if (operand2 === "") {
+            return;
+        }
+        operand2 = operand2.slice(0, operand2.length - 1);
+        updateDisplay(operand2);
+    }
 }
 
 function updateDisplay(value) {
